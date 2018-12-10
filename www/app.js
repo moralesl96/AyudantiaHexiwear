@@ -170,7 +170,7 @@ function verificandoEstudiante()
 {
   rootRef = firebase.database().ref("students");
   alert("Entre a la funcion");
-  rootRef.on('value',gotData, errData);
+  rootRef.once('value',gotData, errData);
 }
   
 function gotData(data) {
@@ -320,70 +320,11 @@ function isHexiwear(device) {
   return device.advertisementData.kCBAdvDataLocalName == "HEXIWEAR";
 }
 
-function convertHexData(data) {
-  return "0x" + evothings.util.typedArrayToHexString(data);
-}
 
-function convert3x16bitData(data) {
-  var d = new Int16Array(data);
-  return d[0] + " " + d[1] + " " + d[2];
-}
-
-function convert8bitPercentageData(data) {
-  return new Uint8Array(data)[0] + "%";
-}
-
-function convertHumidityData(data) {
-  return (new Uint16Array(data)[0]) / 100.0 + "%";
-}
-
-function convertTemperatureData(data) {
-  return (new Int16Array(data)[0]) / 100.0 + " &deg;C";
-}
-
-function convertPressureData(data) {
-  return (new Uint16Array(data)[0]) / 100.0 + " Pa";
-}
-
-function convertHeartData(data) {
-  return new Uint8Array(data)[0] + " bpm";
-}
-
-function convert16bitUnsignedData(data) {
-  return new Uint16Array(data)[0];
-}
 
 var mModes = ["Idle", "Watch", "Sensor Tag", "Weather", "Motion Accel", "Motion Gyro", "Pedometer"];
 
-function convertModeData(data) {
-  var v = new Uint8Array(data)[0];
-  if(v < mModes.length) {
-    return v + " (" + mModes[v] + ")";
-  } else {
-    return "Unknown mode "+v;
-  }
-}
 
-function handleData(elementId, data, converter) {
-  // Show value for sensor.
-  var string = converter(data);
-  document.getElementById(elementId).innerHTML = string;
-}
-
-function readCharacteristic(serviceUUID, characteristicUUID, elementId, converter) {
-  var service = evothings.ble.getService(mDevice, serviceUUID);
-  var characteristic = evothings.ble.getCharacteristic(service, characteristicUUID);
-  evothings.ble.readCharacteristic(
-    mDevice,
-    characteristic,
-    function(data) {
-      handleData(elementId, data, converter);
-    },
-    function(errorCode) {
-      // On Android we get read errors now and then. Log this to the console.
-      console.log("readCharacteristic error: " + errorCode + " element: " + elementId);
-    });
-}
 
 function enableNotification(serviceUUID, characteristicUUID, elementId, converter) {
   var service = evothings.ble.getService(mDevice, serviceUUID);
@@ -404,25 +345,7 @@ function enableNotification(serviceUUID, characteristicUUID, elementId, converte
 function startNotifications() {
   // But first, read static data.
   showStatus("Reading data");
-  //readCharacteristic(INFO_SERVICE, INFO_MANUFACTURER, "manufacturer", evothings.ble.fromUtf8);
-  //readCharacteristic(INFO_SERVICE, INFO_FIRMWARE, "firmware", evothings.ble.fromUtf8);
-  //readCharacteristic(INFO_SERVICE, INFO_SERIAL, "serial", convertHexData);
-  //readCharacteristic(BATTERY_SERVICE, BATTERY_CHARACTERISTIC, "battery", convert8bitPercentageData);
-  //readCharacteristic(MODE_SERVICE, MODE_CHARACTERISTIC, "mode", convertModeData);
-
-  // OK, now we can do notifications.
-  //enableNotification(BATTERY_SERVICE, BATTERY_CHARACTERISTIC, "battery", convert8bitPercentageData);
-  //enableNotification(MODE_SERVICE, MODE_CHARACTERISTIC, "mode", convertModeData);
-
-  // Or not. These services do not support BLE notification, even though you would expect it.
-  // Polling is possible, but quite inefficient by comparison.
-  //enableNotification(MOTION_SERVICE, MOTION_ACCELEROMETER, "accel", convert3x16bitData);
-  //enableNotification(MOTION_SERVICE, MOTION_GYRO, "gyro", convert3x16bitData);
-  //enableNotification(MOTION_SERVICE, MOTION_MAGNET, "magnet", convert3x16bitData);
-  
-  // Let's try polling instead.
   showAssistance("Tienes asistencia");
-  //showName("Johan");
   mTimer = setInterval(disconnect, 3000);
 }
 
