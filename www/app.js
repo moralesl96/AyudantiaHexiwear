@@ -10,7 +10,7 @@ var counter = null;
 var counters = null;
 var counterd= null;
 var bandera = null; // Variable para saber si el estudiante ya se registró.
-var studentGroup = null;
+var studentSubject = null;
 var studentName = null;
 var studentPlate = null;
 
@@ -169,7 +169,7 @@ function scanForDevice() {
 function verificandoEstudiante()
 {
   rootRef = firebase.database().ref("students");
-  alert("Entre a la funcion");
+
   rootRef.once('value',gotData, errData);
 }
   
@@ -178,13 +178,12 @@ function gotData(data) {
     var estudiantes = Object.keys(students);
     for(var i = 0; i < estudiantes.length; i++){
       var s = estudiantes[i];
-      studentGroup = students[s].studentGroup;
+      studentSubject = students[s].studentSubject;
       studentName = students[s].studentName;
       studentPlate = students[s].studentPlate;
       if(uuid == s)
       {
-        alert("El estudiante tiene la matricula: " + studentPlate);
-        writeDate(studentGroup,studentPlate);
+        writeDate(studentSubject,studentPlate);
         i = estudiantes.lenght + 1;
         bandera = 1;
       }
@@ -199,19 +198,15 @@ function errData(err){
   console.log(err);
 }
 
-function writeDate(studentGroup,studentPlate){
-  alert("Entre para escribir fecha");
+function writeDate(studentSubject,studentPlate){
   var d = new Date(); // Para la fecha y hora
-  
-
   var fecha = d.getDate() + "-" + (d.getMonth()+1) + "-" + d.getFullYear();
   var hora = d.getHours() + ":" + d.getMinutes();
 
   firebase.database().ref('attendance/' + studentPlate + "/" + fecha).set({
-      Group: studentGroup,
+      Subject: studentSubject,
       Hour: hora
     });
-  alert("Fecha Registrada");
 }
 
 function connectToDevice(device) {
