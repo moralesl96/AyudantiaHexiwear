@@ -22,7 +22,7 @@ function initialize() {
       };
       firebase.initializeApp(config);
       writeStudent(1,"Guest","Guest",1);
-      showStatus("Ready");
+      showStatus("Listo");
     }
 
 function showIdentifier(text) {

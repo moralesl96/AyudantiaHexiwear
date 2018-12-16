@@ -79,7 +79,7 @@ function onDeviceReady() {
   document.getElementById("disconnectButton")
     .addEventListener("click", disconnect, false);
   
-  showStatus("Ready");
+  showStatus("Listo");
 }
 
 
@@ -110,13 +110,13 @@ function disconnect() {
     showAssistance('');
     showName('');
     showIdentifier('');
-    showStatus("Disconnected");
+    showStatus("Desconectado");
     setTimeout(function(){onDeviceReady();}, 3000)
   }
 }
 
 function scanForDevice() {
-  showStatus("Scanning...");
+  showStatus("Escanenado...");
 
   // Start scanning. Two callback functions are specified.
   evothings.ble.startScan(
@@ -131,7 +131,7 @@ function scanForDevice() {
       // Stop scanning.
       evothings.ble.stopScan();
 
-      showStatus('Found HexiWear Sensor Tag')
+      showStatus('Hexiwear encontrado')
       connectToDevice(device);
     }
     setTimeout(function(){counterdmas();}, 1000)
@@ -210,7 +210,7 @@ function writeDate(studentSubject,studentPlate){
 }
 
 function connectToDevice(device) {
-  showStatus('Connecting to device...')
+  showStatus('Conectando con el dispositivo...')
 
   // Save device.
   mDevice = device;
@@ -223,7 +223,7 @@ function connectToDevice(device) {
     
   function onConnected(device)
   {
-    showStatus('Connected');
+    showStatus('Conectado');
     verificandoEstudiante();
     if(!bandera){
       alert("El estudiante no está registrado.");
@@ -241,13 +241,13 @@ function connectToDevice(device) {
   {
     showAssistance("");
     showName("");
-    showStatus('Device disconnected');
+    showStatus('Dispositivo desconectado');
   }
 
   // Function called when a connect error or disconnect occurs.
   function onConnectError(error)
   {
-    showStatus('Connect error: ' + error);
+    showStatus('Error de conexión: ' + error);
     
     setTimeout(function(){countermas();}, 2000)
     // If we get Android connect error 133, we wait and try to connect again.
@@ -261,7 +261,7 @@ function connectToDevice(device) {
     // Scanning for the device initiates a new pairing process, and connect works.
     if (133 == error  && counter < 4)
     {
-      showStatus('Reconnecting...');
+      showStatus('Reconectando...');
       setTimeout(
         function() {
           disconnect();
@@ -271,7 +271,7 @@ function connectToDevice(device) {
     }
     if (counter < 4)
     {
-      showStatus('Reconnecting...');
+      showStatus('Reconectando...');
       setTimeout(
         function() {
           disconnect();
@@ -305,7 +305,7 @@ function connectToDevice(device) {
       {
         // Not bonded.
         disconnect();
-        showStatus('Device not bonded. Please Connect again.');
+        showStatus('Dispositivo no emparejado. Conéctate de nuevo.');
       });
   }
 }
@@ -339,7 +339,7 @@ function enableNotification(serviceUUID, characteristicUUID, elementId, converte
 
 function startNotifications() {
   // But first, read static data.
-  showStatus("Reading data");
+  showStatus("Leyendo datos");
   showAssistance("Tienes asistencia");
   mTimer = setInterval(disconnect, 3000);
 }
@@ -361,7 +361,7 @@ function searchForBondedDevice(params)
         var device = devices[i];
         if (device.name == params.name)
         {
-          showStatus('Found bonded device: ' + device.name);
+          showStatus('Dispositivo emparejado encontrado: ' + device.name);
           params.onFound(device);
           return; // bonded device found
         }
