@@ -65,14 +65,9 @@ function verificarClave(){
         alert("Llenar todos los campos.");
     }
     else{
-        verificarCurso();
-        if(bandera3 == 1){
-                verificandoEstudiante(); // Funcion para verificar si el uuid ya existe
+         verificarCurso()
+                
         }
-        else{
-            alert("Clave errónea.");
-        }
-    }
     showIdentifier(uuid);
   }
 
@@ -106,6 +101,7 @@ function gotData(data) {
     }
     else{
         writeStudent(sMatricula, name, nombreCurso, uuid);
+        alert("Usuario Registrado");
     }
     clearData("");
     
@@ -148,6 +144,10 @@ function gotData2(data) {
     }
     if(bandera3 == 1){
         nombreCurso = nombre;
+        verificandoEstudiante(); // Funcion para verificar si el uuid ya existe
+    }
+    else{
+        alert("Clave errónea.");
     }
 }
 
