@@ -30,12 +30,12 @@ var MODE_CHARACTERISTIC = "00002041-0000-1000-8000-00805f9b34fb";
 
 function initialize() {
   var config = {
-    apiKey: "AIzaSyDAJ-zEMMVcflMBHfpAQJSqkPoYULy3wi8",
-    authDomain: "ayudantiaasist.firebaseapp.com",
-    databaseURL: "https://ayudantiaasist.firebaseio.com",
-    projectId: "ayudantiaasist",
-    storageBucket: "ayudantiaasist.appspot.com",
-    messagingSenderId: "101016513217"
+    apiKey: "AIzaSyDIWDvb1R3L3jac4y8ZWnkohpZLv-Sc1Fc",
+    authDomain: "salon-inteligente-dc1f9.firebaseapp.com",
+    databaseURL: "https://salon-inteligente-dc1f9.firebaseio.com",
+    projectId: "salon-inteligente-dc1f9",
+    storageBucket: "salon-inteligente-dc1f9.appspot.com",
+    messagingSenderId: "1079171564372"
   };
   firebase.initializeApp(config);
   document.addEventListener("deviceready", onDeviceReady, false);

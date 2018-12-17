@@ -13,13 +13,13 @@ function initialize() {
     document.getElementById("registrar")
     .addEventListener("click", verificarClave, false);
     var config = {
-        apiKey: "AIzaSyDAJ-zEMMVcflMBHfpAQJSqkPoYULy3wi8",
-        authDomain: "ayudantiaasist.firebaseapp.com",
-        databaseURL: "https://ayudantiaasist.firebaseio.com",
-        projectId: "ayudantiaasist",
-        storageBucket: "ayudantiaasist.appspot.com",
-        messagingSenderId: "101016513217"
-      };
+    apiKey: "AIzaSyDIWDvb1R3L3jac4y8ZWnkohpZLv-Sc1Fc",
+    authDomain: "salon-inteligente-dc1f9.firebaseapp.com",
+    databaseURL: "https://salon-inteligente-dc1f9.firebaseio.com",
+    projectId: "salon-inteligente-dc1f9",
+    storageBucket: "salon-inteligente-dc1f9.appspot.com",
+    messagingSenderId: "1079171564372"
+  };
       firebase.initializeApp(config);
       writeStudent(1,"Guest","Guest",1);
       showStatus("Listo");
